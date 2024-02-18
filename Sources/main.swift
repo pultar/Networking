@@ -4,7 +4,11 @@
 import Foundation
 
 let url = URL(string: "https://scf.ai")!
-let (data, response) = try await URLSession.shared.data(from: url)
-if let string = String(data: data, encoding: .utf8) {
-    print(string)
+
+let task = URLSession.shared.dataTask(with: url) { data, response, error in
+    if let data, let string = String(data: data, encoding: .utf8) {
+        print(string)
+    }
 }
+task.resume()
+sleep(1)
